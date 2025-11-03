@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz – 5 Fragen</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      text-align: center;
+      margin-top: 100px;
+    }
+    #quiz-container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 400px;
+      margin: auto;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin: 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    #feedback {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="quiz-container">
+    <h2 id="question-title">Frage 1</h2>
+    <p id="question-text">[Hier kommt die erste Frage hin]</p>
+    <input type="text" id="answer-input" placeholder="Antwort hier eingeben">
+    <br>
+    <button onclick="checkAnswer()">Confirm</button>
+    <div id="feedback"></div>
+  </div>
+
+  <script>
+    const questions = [
+      { title: "Frage 1", text: "[Hier Frage 1 einfügen]", answer: "antwort1" },
+      { title: "Frage 2", text: "[Hier Frage 2 einfügen]", answer: "antwort2" },
+      { title: "Frage 3", text: "[Hier Frage 3 einfügen]", answer: "antwort3" },
+      { title: "Frage 4", text: "[Hier Frage 4 einfügen]", answer: "antwort4" },
+      { title: "Frage 5", text: "[Hier Frage 5 einfügen]", answer: "antwort5" }
+    ];
+
+    let currentQuestion = 0;
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById("question-title").textContent = q.title;
+      document.getElementById("question-text").textContent = q.text;
+      document.getElementById("answer-input").value = "";
+      document.getElementById("feedback").textContent = "";
+    }
+
+    function checkAnswer() {
+      const input = document.getElementById("answer-input").value.trim().toLowerCase();
+      const correct = questions[currentQuestion].answer.toLowerCase();
+      const feedback = document.getElementById("feedback");
+
+      if (input === correct) {
+        feedback.textContent = "✅ Richtig!";
+        setTimeout(() => {
+          currentQuestion++;
+          if (currentQuestion < questions.length) {
+            showQuestion();
+          } else {
+            document.getElementById("quiz-container").innerHTML = "<h2>🎉 Glückwunsch! Du hast das Quiz beendet!</h2>";
+          }
+        }, 1000);
+      } else {
+        feedback.textContent = "❌ Falsch, versuch es nochmal!";
+      }
+    }
+
+    // Beim Laden erste Frage zeigen
+    showQuestion();
+  </script>
+</body>
+</html>
