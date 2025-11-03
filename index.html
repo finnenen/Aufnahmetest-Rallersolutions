@@ -39,6 +39,7 @@
     #feedback {
       margin-top: 15px;
       font-weight: bold;
+      color: green;
     }
   </style>
 </head>
@@ -48,17 +49,17 @@
     <p id="question-text">[Hier kommt die erste Frage hin]</p>
     <input type="text" id="answer-input" placeholder="Antwort hier eingeben">
     <br>
-    <button onclick="checkAnswer()">Confirm</button>
+    <button onclick="confirmAnswer()">Confirm</button>
     <div id="feedback"></div>
   </div>
 
   <script>
     const questions = [
-      { title: "Frage 1", text: "[Hier Frage 1 einfügen]", answer: "antwort1" },
-      { title: "Frage 2", text: "[Hier Frage 2 einfügen]", answer: "antwort2" },
-      { title: "Frage 3", text: "[Hier Frage 3 einfügen]", answer: "antwort3" },
-      { title: "Frage 4", text: "[Hier Frage 4 einfügen]", answer: "antwort4" },
-      { title: "Frage 5", text: "[Hier Frage 5 einfügen]", answer: "antwort5" }
+      { title: "Frage 1", text: "[Hier Frage 1 einfügen]" },
+      { title: "Frage 2", text: "[Hier Frage 2 einfügen]" },
+      { title: "Frage 3", text: "[Hier Frage 3 einfügen]" },
+      { title: "Frage 4", text: "[Hier Frage 4 einfügen]" },
+      { title: "Frage 5", text: "[Hier Frage 5 einfügen]" }
     ];
 
     let currentQuestion = 0;
@@ -71,27 +72,20 @@
       document.getElementById("feedback").textContent = "";
     }
 
-    function checkAnswer() {
-      const input = document.getElementById("answer-input").value.trim().toLowerCase();
-      const correct = questions[currentQuestion].answer.toLowerCase();
+    function confirmAnswer() {
       const feedback = document.getElementById("feedback");
-
-      if (input === correct) {
-        feedback.textContent = "✅ Richtig!";
-        setTimeout(() => {
-          currentQuestion++;
-          if (currentQuestion < questions.length) {
-            showQuestion();
-          } else {
-            document.getElementById("quiz-container").innerHTML = "<h2>🎉 Glückwunsch! Du hast das Quiz beendet!</h2>";
-          }
-        }, 1000);
-      } else {
-        feedback.textContent = "❌ Falsch, versuch es nochmal!";
-      }
+      feedback.textContent = "🎉 Gratulation, richtige Antwort!";
+      setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          showQuestion();
+        } else {
+          document.getElementById("quiz-container").innerHTML = "<h2>🎉 Glückwunsch! Du hast alle Fragen beantwortet!</h2>";
+        }
+      }, 1000);
     }
 
-    // Beim Laden erste Frage zeigen
+    // Erste Frage anzeigen
     showQuestion();
   </script>
 </body>
